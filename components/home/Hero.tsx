@@ -35,16 +35,16 @@ export default function Hero() {
             komisyon yok, bekleme yok — sadece net rakamlar.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+          <div className="mt-9 flex flex-row flex-wrap items-center gap-3 sm:gap-4">
             <Link
               href="/iletisim"
-              className="rounded-md bg-navy px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-navy-deep"
+              className="whitespace-nowrap rounded-md bg-navy px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-navy-deep sm:px-7"
             >
               Şubeyi Bul
             </Link>
             <Link
               href="/kurlar"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-navy hover:text-gold"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-navy hover:text-gold"
             >
               Kurları İncele
               <span aria-hidden>→</span>
