@@ -1,5 +1,5 @@
 import Hero from "@/components/home/Hero";
-import StatsBar from "@/components/home/StatsBar";
+import TrustBar from "@/components/home/TrustBar";
 import Features from "@/components/home/Features";
 import HowItWorks from "@/components/home/HowItWorks";
 import AboutSummary from "@/components/home/AboutSummary";
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <StatsBar />
+      <TrustBar />
       <Features />
       <HowItWorks />
       <AboutSummary />

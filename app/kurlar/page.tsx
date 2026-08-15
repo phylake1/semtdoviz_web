@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import RatesTable from "@/components/rates/RatesTable";
+import ConverterPanel from "@/components/rates/ConverterPanel";
+import TrendChartPanel from "@/components/rates/TrendChartPanel";
 import { siteConfig } from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
@@ -17,8 +19,12 @@ export const metadata: Metadata = {
   },
 };
 
-function TableFallback() {
-  return <div className="h-[340px] animate-pulse rounded-xl border border-line bg-white" />;
+function PanelFallback() {
+  return <div className="h-[360px] animate-pulse rounded-xl border border-line bg-white" />;
+}
+
+function ChartFallback() {
+  return <div className="h-[240px] animate-pulse rounded-xl border border-line bg-white" />;
 }
 
 export default function KurlarPage() {
@@ -30,19 +36,32 @@ export default function KurlarPage() {
           Güncel Döviz Kurları
         </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-navy/60">
-          Aşağıdaki tablo, uluslararası referans kurlar üzerinden hesaplanan
-          gösterge alış-satış değerlerini 5 dakikada bir günceller. Şubede
-          geçerli kesin kur için lütfen bizi arayın veya şubemize uğrayın.
+          Uluslararası referans kurlar üzerinden hesaplanan gösterge
+          değerleri 5 dakikada bir güncellenir. Şubede geçerli kesin kur
+          için lütfen bizi arayın.
         </p>
       </Reveal>
 
-      <Reveal delay={0.1} className="mt-10 max-w-2xl">
-        <Suspense fallback={<TableFallback />}>
-          <RatesTable />
+      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <Reveal>
+          <Suspense fallback={<PanelFallback />}>
+            <ConverterPanel />
+          </Suspense>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <Suspense fallback={<PanelFallback />}>
+            <RatesTable />
+          </Suspense>
+        </Reveal>
+      </div>
+
+      <Reveal delay={0.12} className="mt-6">
+        <Suspense fallback={<ChartFallback />}>
+          <TrendChartPanel code="USD" />
         </Suspense>
       </Reveal>
 
-      <Reveal delay={0.15} className="mt-10 max-w-2xl rounded-xl border border-line bg-white p-6">
+      <Reveal delay={0.16} className="mt-6 max-w-2xl rounded-xl border border-line bg-white p-6">
         <h2 className="text-base font-semibold text-navy">Kur nasıl belirlenir?</h2>
         <p className="mt-2 text-sm leading-relaxed text-navy/60">
           Şubelerimizdeki alış-satış kurları; uluslararası piyasa verileri,

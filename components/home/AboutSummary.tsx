@@ -1,5 +1,8 @@
 import Link from "next/link";
 import Reveal from "@/components/motion/Reveal";
+import { siteConfig } from "@/lib/site";
+
+const aboutText = `Semt Döviz, ${siteConfig.legal.licenseAuthority} tarafından ${siteConfig.legal.licenseType} olarak faaliyet iznine sahiptir. ${siteConfig.address.district}, ${siteConfig.address.city}'daki şubemizde döviz ve altın alım-satımını şeffaf kurlar ve komşuluk sıcaklığıyla sürdürüyoruz.`;
 
 export default function AboutSummary() {
   return (
@@ -7,22 +10,17 @@ export default function AboutSummary() {
       <div className="grid gap-12 md:grid-cols-2 md:items-center">
         <Reveal className="relative overflow-hidden rounded-xl bg-navy p-10 text-white md:p-14">
           <p className="font-display text-2xl font-medium leading-snug text-white/90 sm:text-3xl">
-            &ldquo;Komşuluk anlayışıyla kurduğumuz güveni, 25 yıldır her işlemde
+            &ldquo;Komşuluk anlayışıyla kurduğumuz güveni, her işlemde
             koruyoruz.&rdquo;
           </p>
-          <p className="mt-6 text-sm text-white/50">Semt Döviz Kurucu Ortağı</p>
+          <p className="mt-6 text-sm text-white/50">Semt Döviz Ekibi</p>
         </Reveal>
 
         <Reveal delay={0.1}>
           <h2 className="font-display text-3xl font-semibold text-navy sm:text-4xl">
-            Mahallenin dövizcisinden, güvenilir bir kuruma
+            Mahallenin dövizcisinden, yetkili bir kuruma
           </h2>
-          <p className="mt-5 text-[15px] leading-relaxed text-navy/60">
-            1998 yılında tek bir şube ile başladığımız yolculuğumuzda bugün
-            İstanbul genelinde 6 şubemizle binlerce müşterimize hizmet
-            veriyoruz. Yetkili müessese statümüzle mevzuata tam uyum
-            sağlarken, komşuluk sıcaklığını hiç kaybetmedik.
-          </p>
+          <p className="mt-5 text-[15px] leading-relaxed text-navy/60">{aboutText}</p>
           <Link
             href="/hakkimizda"
             className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-navy hover:text-gold"

@@ -76,3 +76,57 @@ export function formatTRY(value: number | null): string {
     maximumFractionDigits: 4,
   }).format(value);
 }
+
+export type RatePoint = { date: string; value: number };
+
+function toISODate(d: Date): string {
+  return d.toISOString().slice(0, 10);
+}
+
+/** Daily TRY-per-unit history for a currency over the last N days. */
+export async function getRateHistory(
+  code: CurrencyCode,
+  days = 14
+): Promise<RatePoint[]> {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - days);
+
+  try {
+    const res = await fetch(
+      `https://api.frankfurter.dev/v1/${toISODate(start)}..${toISODate(end)}?base=${code}&symbols=TRY`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    const rates = data?.rates as Record<string, { TRY?: number }> | undefined;
+    if (!rates) return [];
+
+    return Object.entries(rates)
+      .filter(([, v]) => typeof v.TRY === "number")
+      .map(([date, v]) => ({ date, value: v.TRY as number }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+  } catch {
+    return [];
+  }
+}
+
+/** Convert an amount between TRY and a supported foreign currency using mid rates. */
+export function convert(
+  amount: number,
+  from: CurrencyCode | "TRY",
+  to: CurrencyCode | "TRY",
+  rates: CurrencyRate[]
+): number | null {
+  const midOf = (code: CurrencyCode | "TRY"): number | null => {
+    if (code === "TRY") return 1;
+    return rates.find((r) => r.code === code)?.mid ?? null;
+  };
+
+  const fromMid = midOf(from);
+  const toMid = midOf(to);
+  if (fromMid === null || toMid === null) return null;
+
+  const amountInTRY = amount * fromMid;
+  return amountInTRY / toMid;
+}

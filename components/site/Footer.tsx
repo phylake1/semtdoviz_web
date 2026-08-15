@@ -14,7 +14,7 @@ export default function Footer() {
             {siteConfig.description}
           </p>
           <p className="mt-6 text-xs uppercase tracking-widest text-white/40">
-            T.C. Hazine ve Maliye Bakanlığı yetkili müessesesi
+            {siteConfig.legal.licenseAuthority} · {siteConfig.legal.licenseType}
           </p>
         </div>
 
@@ -54,7 +54,8 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col gap-2 py-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {siteConfig.name}. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} {siteConfig.legalName}. Tüm hakları saklıdır. ·
+            Tic. Sicil No: {siteConfig.legal.tradeRegistryNo} · Mersis No: {siteConfig.legal.mersisNo}
           </p>
           <p>Kurlar gösterge niteliğindedir, yatırım tavsiyesi değildir.</p>
         </div>

@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import RatesTable from "@/components/rates/RatesTable";
+import ConverterPanel from "@/components/rates/ConverterPanel";
 import Reveal from "@/components/motion/Reveal";
 
-function RatesTableFallback() {
+function ConverterFallback() {
   return (
     <div className="h-[360px] animate-pulse rounded-xl border border-line bg-navy/5" />
   );
@@ -53,8 +53,8 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <Suspense fallback={<RatesTableFallback />}>
-            <RatesTable />
+          <Suspense fallback={<ConverterFallback />}>
+            <ConverterPanel />
           </Suspense>
         </Reveal>
       </div>

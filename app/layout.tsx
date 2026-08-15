@@ -84,6 +84,17 @@ const jsonLd = {
     postalCode: siteConfig.address.postalCode,
     addressCountry: siteConfig.address.country,
   },
+  taxID: siteConfig.legal.taxNo,
+  identifier: siteConfig.legal.mersisNo,
+  hasCredential: {
+    "@type": "EducationalOccupationalCredential",
+    credentialCategory: siteConfig.legal.licenseType,
+    recognizedBy: {
+      "@type": "GovernmentOrganization",
+      name: siteConfig.legal.licenseAuthority,
+    },
+    dateCreated: "2020-01-10",
+  },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

@@ -5,21 +5,25 @@ import Reveal from "@/components/motion/Reveal";
 export const metadata: Metadata = {
   title: "Hakkımızda",
   description:
-    "1998'den bu yana İstanbul'da hizmet veren Semt Döviz'in hikayesi, değerleri ve yetkinlikleri.",
+    "Semt Döviz, T.C. Hazine ve Maliye Bakanlığı onaylı B Grubu Yetkili Müessese olarak Ümraniye, İstanbul'da döviz ve altın alım-satım hizmeti verir.",
   alternates: { canonical: "/hakkimizda" },
   openGraph: {
     title: `Hakkımızda | ${siteConfig.name}`,
     description:
-      "1998'den bu yana İstanbul'da hizmet veren Semt Döviz'in hikayesi, değerleri ve yetkinlikleri.",
+      "Semt Döviz, T.C. Hazine ve Maliye Bakanlığı onaylı B Grubu Yetkili Müessese olarak Ümraniye, İstanbul'da döviz ve altın alım-satım hizmeti verir.",
     url: `${siteConfig.url}/hakkimizda`,
   },
 };
 
-const milestones = [
-  { year: "1998", title: "Kuruluş", text: "Kadıköy'de tek şubemizle yola çıktık." },
-  { year: "2006", title: "Yetkili Müessese", text: "Hazine ve Maliye Bakanlığı yetki belgesini aldık." },
-  { year: "2015", title: "Büyüme", text: "İstanbul genelinde 6 şubeye ulaştık." },
-  { year: "2024", title: "Dijitalleşme", text: "Kurlarımızı çevrimiçi şeffaf şekilde paylaşmaya başladık." },
+const credentials = [
+  { label: "Yetki Türü", value: siteConfig.legal.licenseType },
+  { label: "Yetkilendiren Kurum", value: siteConfig.legal.licenseAuthority },
+  { label: "Faaliyet İzni Tarihi", value: siteConfig.legal.licenseDate },
+  { label: "Vergi Dairesi", value: siteConfig.legal.taxOffice },
+  { label: "Vergi No", value: siteConfig.legal.taxNo },
+  { label: "Ticaret Sicil No", value: siteConfig.legal.tradeRegistryNo },
+  { label: "Mersis No", value: siteConfig.legal.mersisNo },
+  { label: "Merkez Adres", value: `${siteConfig.address.district}, ${siteConfig.address.city}` },
 ];
 
 const values = [
@@ -38,29 +42,39 @@ export default function HakkimizdaPage() {
               Hakkımızda
             </p>
             <h1 className="mt-3 max-w-2xl font-display text-3xl font-semibold text-navy sm:text-4xl">
-              Komşuluk güveniyle başlayan, kurumsal disiplinle büyüyen bir hikaye
+              Komşuluk güveniyle çalışan, yasal olarak yetkilendirilmiş bir müessese
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-navy/60">
-              Semt Döviz, 1998 yılında İstanbul Kadıköy&apos;de küçük bir
-              şubeyle kuruldu. Bugün T.C. Hazine ve Maliye Bakanlığı yetkili
-              müessesesi olarak, şeffaf kur politikamız ve deneyimli ekibimizle
-              binlerce müşteriye hizmet veriyoruz.
+              Semt Döviz, {siteConfig.legal.licenseAuthority} tarafından{" "}
+              {siteConfig.legal.licenseType} statüsüyle faaliyet iznine
+              sahiptir. {siteConfig.address.district}, {siteConfig.address.city}{"'"}
+              daki şubemizde şeffaf kur politikamız ve deneyimli ekibimizle
+              döviz ve altın alım-satım hizmeti veriyoruz.
             </p>
           </Reveal>
         </div>
       </section>
 
       <section className="container-page py-16 md:py-24">
-        <h2 className="font-display text-2xl font-semibold text-navy sm:text-3xl">Yol Haritamız</h2>
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {milestones.map((m, i) => (
-            <Reveal key={m.year} delay={i * 0.06} className="border-l-2 border-gold/40 pl-5">
-              <p className="font-display text-xl font-semibold text-gold">{m.year}</p>
-              <p className="mt-1 text-sm font-semibold text-navy">{m.title}</p>
-              <p className="mt-1 text-sm text-navy/60">{m.text}</p>
+        <Reveal>
+          <h2 className="font-display text-2xl font-semibold text-navy sm:text-3xl">
+            Yasal Statü ve Belgelerimiz
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-navy/60">
+            Resmi ruhsat ve sicil bilgilerimiz; şeffaflık ilkemiz gereği
+            herkese açıktır.
+          </p>
+        </Reveal>
+        <dl className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+          {credentials.map((c, i) => (
+            <Reveal key={c.label} delay={i * 0.04} className="border-l-2 border-gold/40 pl-4">
+              <dt className="text-xs uppercase tracking-wide text-navy/50">{c.label}</dt>
+              <dd className="mt-1 font-mono text-sm font-semibold text-navy break-words">
+                {c.value}
+              </dd>
             </Reveal>
           ))}
-        </div>
+        </dl>
       </section>
 
       <section className="bg-white py-16 md:py-24">
