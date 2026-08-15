@@ -20,7 +20,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="border-y border-line bg-surface py-20 md:py-28">
+    <section className="bg-surface py-20 md:py-28">
       <div className="container-page">
         <Reveal className="max-w-xl">
           <h2 className="font-display text-3xl font-semibold text-navy sm:text-4xl">

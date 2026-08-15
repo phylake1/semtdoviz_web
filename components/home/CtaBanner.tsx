@@ -4,7 +4,7 @@ import Reveal from "@/components/motion/Reveal";
 
 export default function CtaBanner() {
   return (
-    <section className="border-t border-line bg-white pb-20 pt-16 md:pb-28 md:pt-20">
+    <section className="bg-white pb-20 pt-16 md:pb-28 md:pt-20">
       <div className="container-page">
         <Reveal className="flex flex-col items-start gap-6 rounded-xl border border-line bg-surface px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-12 md:px-14">
           <div>

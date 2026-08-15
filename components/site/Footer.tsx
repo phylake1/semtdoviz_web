@@ -57,7 +57,12 @@ export default function Footer() {
             © {new Date().getFullYear()} {siteConfig.legalName}. Tüm hakları saklıdır. ·
             Tic. Sicil No: {siteConfig.legal.tradeRegistryNo} · Mersis No: {siteConfig.legal.mersisNo}
           </p>
-          <p>Kurlar gösterge niteliğindedir, yatırım tavsiyesi değildir.</p>
+          <p>
+            Kurlar gösterge niteliğindedir, yatırım tavsiyesi değildir. ·{" "}
+            <Link href="/gizlilik" className="hover:text-white">
+              KVKK Aydınlatma Metni
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

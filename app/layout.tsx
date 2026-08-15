@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
+import KvkkConsent from "@/components/site/KvkkConsent";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -134,6 +135,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <KvkkConsent />
       </body>
     </html>
   );

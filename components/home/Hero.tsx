@@ -43,7 +43,7 @@ export default function Hero() {
               Şubeyi Bul
             </Link>
             <Link
-              href="/kurlar"
+              href="/#kurlar"
               className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-navy hover:text-gold"
             >
               Kurları İncele

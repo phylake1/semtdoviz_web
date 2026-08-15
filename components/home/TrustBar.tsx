@@ -10,7 +10,7 @@ const badges = [
 
 export default function TrustBar() {
   return (
-    <section className="border-y border-line bg-surface">
+    <section className="bg-surface">
       <div className="container-page grid grid-cols-2 gap-8 py-10 sm:grid-cols-4">
         {badges.map((badge, i) => (
           <Reveal key={badge.label} delay={i * 0.06} className="flex items-start gap-3">
