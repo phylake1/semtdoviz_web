@@ -31,7 +31,7 @@ export default function Navbar() {
           </a>
           <Link
             href="/iletisim"
-            className="rounded-full bg-navy px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-navy-deep"
+            className="rounded-md bg-navy px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-navy-deep"
           >
             Şubeyi Bul
           </Link>

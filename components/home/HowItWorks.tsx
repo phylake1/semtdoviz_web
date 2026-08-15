@@ -1,3 +1,5 @@
+import Reveal from "@/components/motion/Reveal";
+
 const steps = [
   {
     step: "01",
@@ -20,30 +22,27 @@ export default function HowItWorks() {
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="container-page">
-        <div className="max-w-xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-gold">
-            Nasıl Çalışır
-          </p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">
+        <Reveal className="max-w-xl">
+          <h2 className="font-display text-3xl font-semibold text-navy sm:text-4xl">
             Üç adımda döviz işleminiz tamam
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mt-14 grid gap-10 md:grid-cols-3">
           {steps.map((item, i) => (
-            <div key={item.step} className="relative pl-0">
-              <span className="font-display text-5xl text-navy/10">{item.step}</span>
-              <h3 className="mt-4 text-lg font-semibold text-navy">{item.title}</h3>
+            <Reveal key={item.step} delay={i * 0.08} className="relative pl-0">
+              <span className="font-mono text-sm font-semibold text-gold">{item.step}</span>
+              <h3 className="mt-3 text-lg font-semibold text-navy">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-navy/60">
                 {item.description}
               </p>
               {i < steps.length - 1 && (
                 <span
-                  className="absolute right-[-1.25rem] top-6 hidden h-px w-10 bg-line md:block"
+                  className="absolute right-[-1.25rem] top-2 hidden h-px w-10 bg-line md:block"
                   aria-hidden
                 />
               )}
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

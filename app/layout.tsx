@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Fraunces } from "next/font/google";
+import { Manrope, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import { siteConfig } from "@/lib/site";
@@ -11,11 +11,16 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -59,7 +64,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0e2038",
+  themeColor: "#0b0d10",
 };
 
 const jsonLd = {
@@ -106,7 +111,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${manrope.variable} ${fraunces.variable} h-full`}>
+    <html
+      lang="tr"
+      className={`${manrope.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full`}
+    >
       <body className="flex min-h-full flex-col antialiased">
         <script
           type="application/ld+json"

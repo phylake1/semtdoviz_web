@@ -62,7 +62,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-deep"
+        className="rounded-md bg-navy px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-deep"
       >
         Mesajı Gönder
       </button>

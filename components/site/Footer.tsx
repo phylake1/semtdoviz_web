@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 bg-navy-deep text-white/70">
       <div className="container-page grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <span className="font-display text-xl text-white">
+          <span className="font-display text-xl font-semibold text-white">
             Semt <span className="text-gold-light">Döviz</span>
           </span>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">

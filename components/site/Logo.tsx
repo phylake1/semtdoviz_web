@@ -10,12 +10,12 @@ export default function Logo({ dark = false }: { dark?: boolean }) {
       <span
         className={`flex h-9 w-9 items-center justify-center rounded-full border ${
           dark ? "border-gold-light/60 text-gold-light" : "border-gold text-navy"
-        } font-display text-sm tracking-wide`}
+        } font-display text-sm font-semibold tracking-wide`}
       >
         SD
       </span>
       <span
-        className={`font-display text-lg leading-none ${dark ? "text-white" : "text-navy"}`}
+        className={`font-display text-lg font-semibold leading-none ${dark ? "text-white" : "text-navy"}`}
       >
         Semt <span className="text-gold">Döviz</span>
       </span>

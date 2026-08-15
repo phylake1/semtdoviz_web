@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf8f4;
-  --foreground: #14202e;
-  --navy: #0e2038;
-  --navy-deep: #081527;
-  --gold: #b8934a;
-  --gold-light: #d9b972;
-  --line: #e6e1d6;
+  --background: #ffffff;
+  --surface: #f7f7f5;
+  --foreground: #14171c;
+  --navy: #0b0d10;
+  --navy-deep: #050607;
+  --gold: #b87613;
+  --gold-light: #f0b64a;
+  --line: #e6e6e2;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy-deep);
@@ -19,7 +21,8 @@
   --color-gold-light: var(--gold-light);
   --color-line: var(--line);
   --font-sans: var(--font-manrope);
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
@@ -30,7 +33,7 @@ body {
 
 @layer utilities {
   .font-display {
-    font-family: var(--font-display), Georgia, serif;
+    font-family: var(--font-display), system-ui, sans-serif;
   }
 
   .text-balance {
