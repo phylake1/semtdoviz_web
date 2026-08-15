@@ -1,0 +1,41 @@
+export const siteConfig = {
+  name: "Semt Döviz",
+  legalName: "Semt Döviz Yetkili Müessesesi",
+  domain: "semtdoviz.com",
+  url: "https://semtdoviz.com",
+  description:
+    "Semt Döviz; şeffaf kurlar, hızlı işlem ve güvenilir hizmetle mahallenizdeki döviz bürosu. Güncel USD, EUR, GBP ve CHF kurlarını canlı takip edin.",
+  shortDescription: "Mahallenizin güvenilir döviz bürosu.",
+  tagline: "Güvenin adresi, kurun şeffaf adresi.",
+  phone: "+90 212 000 00 00",
+  phoneDisplay: "0212 000 00 00",
+  whatsapp: "+90 532 000 00 00",
+  email: "info@semtdoviz.com",
+  address: {
+    street: "Bağdat Caddesi No: 123/A",
+    district: "Kadıköy",
+    city: "İstanbul",
+    postalCode: "34710",
+    country: "TR",
+  },
+  hours: {
+    weekdays: "09:00 – 19:00",
+    saturday: "10:00 – 17:00",
+    sunday: "Kapalı",
+  },
+  social: {
+    instagram: "https://instagram.com/semtdoviz",
+    x: "https://x.com/semtdoviz",
+  },
+  keywords: [
+    "döviz bürosu",
+    "semt döviz",
+    "güncel döviz kuru",
+    "dolar kuru",
+    "euro kuru",
+    "sterlin kuru",
+    "kadıköy döviz",
+    "istanbul döviz bürosu",
+    "canlı döviz kurları",
+  ],
+} as const;
