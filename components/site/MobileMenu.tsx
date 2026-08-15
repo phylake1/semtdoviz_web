@@ -34,72 +34,61 @@ export default function MobileMenu() {
 
       <AnimatePresence>
         {open && (
-          <>
-            <motion.div
-              className="fixed inset-0 z-50 bg-navy/40 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={() => setOpen(false)}
-              aria-hidden
-            />
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label="Site menüsü"
-              className="fixed inset-y-0 right-0 z-50 flex w-[82%] max-w-xs flex-col bg-background shadow-2xl"
-              initial={reduce ? { opacity: 0 } : { x: "100%" }}
-              animate={reduce ? { opacity: 1 } : { x: 0 }}
-              exit={reduce ? { opacity: 0 } : { x: "100%" }}
-              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="flex items-center justify-between border-b border-line px-5 py-4">
-                <span className="font-display text-lg font-semibold text-navy">
-                  Semt <span className="text-gold">Döviz</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  aria-label="Menüyü kapat"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 text-navy"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M1 1L15 15M15 1L1 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menüsü"
+            className="fixed inset-0 z-50 flex h-dvh w-screen flex-col bg-navy text-white"
+            initial={reduce ? { opacity: 0 } : { x: "100%" }}
+            animate={reduce ? { opacity: 1 } : { x: 0 }}
+            exit={reduce ? { opacity: 0 } : { x: "100%" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+              <span className="font-display text-lg font-semibold text-white">
+                Semt <span className="text-gold-light">Döviz</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Menüyü kapat"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <path d="M1 1L15 15M15 1L1 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
 
-              <nav className="flex flex-1 flex-col px-5 py-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="border-b border-line/70 py-4 text-lg font-medium text-navy last:border-none"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-
-              <div className="space-y-3 border-t border-line px-5 py-5">
-                <a
-                  href={`tel:${siteConfig.phone.replace(/\s+/g, "")}`}
-                  className="block text-sm font-semibold text-navy"
-                >
-                  {siteConfig.phoneDisplay}
-                </a>
+            <nav className="flex flex-1 flex-col justify-center gap-1 px-6">
+              {navLinks.map((link) => (
                 <Link
-                  href="/iletisim"
+                  key={link.href}
+                  href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-md bg-navy px-5 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-navy-deep"
+                  className="border-b border-white/10 py-5 font-display text-3xl font-semibold text-white last:border-none"
                 >
-                  Şubeyi Bul
+                  {link.label}
                 </Link>
-              </div>
-            </motion.div>
-          </>
+              ))}
+            </nav>
+
+            <div className="space-y-3 border-t border-white/10 px-6 py-6">
+              <a
+                href={`tel:${siteConfig.phone.replace(/\s+/g, "")}`}
+                className="block text-base font-semibold text-white/80"
+              >
+                {siteConfig.phoneDisplay}
+              </a>
+              <Link
+                href="/iletisim"
+                onClick={() => setOpen(false)}
+                className="block rounded-md bg-gold px-5 py-3.5 text-center text-sm font-semibold text-navy-deep transition-colors hover:bg-gold-light"
+              >
+                Şubeyi Bul
+              </Link>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
