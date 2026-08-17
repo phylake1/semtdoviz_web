@@ -14,7 +14,7 @@ export default function TrendChart({
 }) {
   if (points.length < 2) {
     return (
-      <div className="flex h-40 items-center justify-center rounded-xl border border-line bg-white text-sm text-navy/40">
+      <div className="flex h-full min-h-[240px] items-center justify-center rounded-xl border border-line bg-white text-sm text-navy/40">
         Grafik verisi şu anda alınamadı.
       </div>
     );
@@ -48,7 +48,7 @@ export default function TrendChart({
   const isUp = changePct >= 0;
 
   return (
-    <div className="rounded-xl border border-line bg-white p-5 sm:p-6">
+    <div className="flex h-full flex-col rounded-xl border border-line bg-white p-5 sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <p className="text-sm font-semibold text-navy">{code}/TRY — Son {points.length} gün</p>
@@ -65,15 +65,17 @@ export default function TrendChart({
         </span>
       </div>
 
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        className="mt-4 w-full text-gold"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <path d={areaPath} fill="currentColor" opacity="0.08" />
-        <path d={linePath} fill="none" stroke="currentColor" strokeWidth="2" />
-      </svg>
+      <div className="mt-4 min-h-0 flex-1">
+        <svg
+          viewBox={`0 0 ${width} ${height}`}
+          className="h-full w-full text-gold"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path d={areaPath} fill="currentColor" opacity="0.08" />
+          <path d={linePath} fill="none" stroke="currentColor" strokeWidth="2" />
+        </svg>
+      </div>
 
       <div className="mt-1 flex justify-between font-mono text-[11px] text-navy/40">
         <span>{formatShortDate(points[0].date)}</span>

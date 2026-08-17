@@ -4,7 +4,7 @@ export default async function RatesTable() {
   const { rates, asOf, live } = await getRates();
 
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-navy text-white shadow-[0_30px_60px_-30px_rgba(11,13,16,0.5)]">
+    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-navy text-white shadow-[0_12px_24px_-16px_rgba(11,13,16,0.35)]">
       <div className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-3 sm:px-5 sm:py-3.5">
         <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-white/80 sm:text-xs">
           <span
@@ -20,7 +20,7 @@ export default async function RatesTable() {
         )}
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="flex-1 overflow-x-auto">
         <table className="w-full min-w-[380px] border-collapse text-left">
           <thead>
             <tr className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">

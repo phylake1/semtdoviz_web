@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { siteConfig } from "@/lib/site";
 import Reveal from "@/components/motion/Reveal";
 
@@ -65,16 +66,33 @@ export default function HakkimizdaPage() {
             herkese açıktır.
           </p>
         </Reveal>
-        <dl className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
-          {credentials.map((c, i) => (
-            <Reveal key={c.label} delay={i * 0.04} className="border-l-2 border-gold/40 pl-4">
-              <dt className="text-xs uppercase tracking-wide text-navy/50">{c.label}</dt>
-              <dd className="mt-1 font-mono text-sm font-semibold text-navy break-words">
-                {c.value}
-              </dd>
-            </Reveal>
-          ))}
-        </dl>
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+          <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            {credentials.map((c, i) => (
+              <Reveal key={c.label} delay={i * 0.04} className="border-l-2 border-gold/40 pl-4">
+                <dt className="text-xs uppercase tracking-wide text-navy/50">{c.label}</dt>
+                <dd className="mt-1 font-mono text-sm font-semibold text-navy break-words">
+                  {c.value}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+
+          <Reveal delay={0.2}>
+            <div className="overflow-hidden rounded-xl border border-line bg-white p-3 shadow-[0_30px_60px_-30px_rgba(11,13,16,0.25)]">
+              <Image
+                src="/license.jpg"
+                alt="Semt Döviz B Grubu Yetkili Müessese Faaliyet İzin Belgesi"
+                width={1618}
+                height={1043}
+                className="w-full rounded-md"
+              />
+            </div>
+            <p className="mt-3 text-center text-xs text-navy/50">
+              T.C. Hazine ve Maliye Bakanlığı — B Grubu Yetkili Müessese Faaliyet İzin Belgesi ({siteConfig.legal.licenseDate})
+            </p>
+          </Reveal>
+        </div>
       </section>
 
       <section className="bg-white py-16 md:py-24">

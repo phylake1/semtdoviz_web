@@ -8,7 +8,7 @@ function PanelFallback() {
 }
 
 function ChartFallback() {
-  return <div className="h-[240px] animate-pulse rounded-xl border border-line bg-white" />;
+  return <div className="h-[360px] animate-pulse rounded-xl border border-line bg-white" />;
 }
 
 export default function RatesOverview() {
@@ -27,20 +27,20 @@ export default function RatesOverview() {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          <Reveal>
+        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-stretch">
+          <Reveal className="h-full">
             <Suspense fallback={<PanelFallback />}>
               <RatesTable />
             </Suspense>
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="h-full">
             <Suspense fallback={<ChartFallback />}>
               <TrendChartPanel code="USD" />
             </Suspense>
           </Reveal>
         </div>
 
-        <Reveal delay={0.16} className="mt-6 max-w-2xl rounded-xl border border-line bg-white p-6">
+        <Reveal delay={0.16} className="mt-6 rounded-xl border border-line bg-white p-6">
           <h3 className="text-base font-semibold text-navy">Kur nasıl belirlenir?</h3>
           <p className="mt-2 text-sm leading-relaxed text-navy/60">
             Şubelerimizdeki alış-satış kurları; uluslararası piyasa verileri,

@@ -7,8 +7,8 @@ export const siteConfig = {
     "Semt Döviz; T.C. Hazine ve Maliye Bakanlığı onaylı B Grubu Yetkili Müessese olarak şeffaf kurlar ve güvenilir hizmetle döviz ve altın alım-satımı sunar. Güncel USD, EUR, GBP ve CHF kurlarını canlı takip edin.",
   shortDescription: "Yetkili döviz ve altın müessesesi.",
   tagline: "Güvenin adresi, kurun şeffaf adresi.",
-  phone: "+90 212 000 00 00",
-  phoneDisplay: "0212 000 00 00",
+  phone: "+90 552 504 16 58",
+  phoneDisplay: "0552 504 16 58",
   whatsapp: "+90 532 000 00 00",
   email: "info@semtdoviz.com",
   address: {

@@ -81,9 +81,15 @@ export default function IletisimPage() {
           </div>
 
           <div className="overflow-hidden rounded-xl border border-line">
-            <div className="flex h-48 items-center justify-center bg-surface text-sm text-navy/40">
-              Harita — {siteConfig.address.district}, {siteConfig.address.city}
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6883.083230357674!2d29.133781926988302!3d41.0171828664929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac8d2efe4322d%3A0xa3837bbadb031e40!2sSemt%20D%C3%B6viz%20ve%20Altin%20A.S.!5e1!3m2!1sen!2str!4v1786963328803!5m2!1sen!2str"
+              className="h-64 w-full sm:h-72"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title={`${siteConfig.name} Konum`}
+            />
           </div>
         </Reveal>
       </div>
