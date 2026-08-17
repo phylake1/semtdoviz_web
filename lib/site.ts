@@ -10,7 +10,7 @@ export const siteConfig = {
   phone: "+90 552 504 16 58",
   phoneDisplay: "0552 504 16 58",
   whatsapp: "+90 532 000 00 00",
-  email: "info@semtdoviz.com",
+  email: "semtdoviz@gmail.com",
   address: {
     street: "Cemil Meriç Mah. Alemdağ Cd. Kızılırmak İş Hanı A Blok No:281/1",
     district: "Ümraniye",

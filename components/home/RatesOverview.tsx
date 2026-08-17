@@ -27,13 +27,13 @@ export default function RatesOverview() {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-stretch">
-          <Reveal className="h-full">
+        <div className="mt-10 grid min-w-0 gap-6 lg:grid-cols-2 lg:items-stretch">
+          <Reveal className="h-full min-w-0">
             <Suspense fallback={<PanelFallback />}>
               <RatesTable />
             </Suspense>
           </Reveal>
-          <Reveal delay={0.08} className="h-full">
+          <Reveal delay={0.08} className="h-full min-w-0">
             <Suspense fallback={<ChartFallback />}>
               <TrendChartPanel code="USD" />
             </Suspense>
