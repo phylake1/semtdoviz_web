@@ -11,6 +11,7 @@ const ALL_CODES: { code: Code; name: string }[] = [
   { code: "EUR", name: "Euro" },
   { code: "GBP", name: "İngiliz Sterlini" },
   { code: "CHF", name: "İsviçre Frangı" },
+  { code: "GRA", name: "Gram Altın (24 Ayar)" },
 ];
 
 function formatResult(value: number): string {

@@ -1,4 +1,4 @@
-export type CurrencyCode = "USD" | "EUR" | "GBP" | "CHF";
+export type CurrencyCode = "USD" | "EUR" | "GBP" | "CHF" | "GRA";
 
 export type CurrencyRate = {
   code: CurrencyCode;
@@ -6,9 +6,9 @@ export type CurrencyRate = {
   flag: string;
   /** TRY per 1 unit of the currency, or null if unavailable. */
   mid: number | null;
-  /** Indicative buy (alış) rate — mid rate minus a small illustrative spread. */
+  /** Alış (buy) rate — mid rate minus the margin. */
   buy: number | null;
-  /** Indicative sell (satış) rate — mid rate plus a small illustrative spread. */
+  /** Satış (sell) rate — mid rate plus the margin. */
   sell: number | null;
 };
 
@@ -18,51 +18,69 @@ export type RatesResult = {
   live: boolean;
 };
 
-const CURRENCIES: { code: CurrencyCode; name: string; flag: string }[] = [
-  { code: "USD", name: "Amerikan Doları", flag: "🇺🇸" },
-  { code: "EUR", name: "Euro", flag: "🇪🇺" },
-  { code: "GBP", name: "İngiliz Sterlini", flag: "🇬🇧" },
-  { code: "CHF", name: "İsviçre Frangı", flag: "🇨🇭" },
+// Altın için kendi kar marjımızı eklemiyoruz (margin: false) — Truncgil'in
+// kendi alış/satış farkı zaten piyasa marjını yansıtıyor. Döviz kalemlerine
+// ise MARGIN_TRY üzerinden kendi marjımızı uyguluyoruz.
+const CURRENCIES: { code: CurrencyCode; name: string; flag: string; margin: boolean }[] = [
+  { code: "USD", name: "Amerikan Doları", flag: "🇺🇸", margin: true },
+  { code: "EUR", name: "Euro", flag: "🇪🇺", margin: true },
+  { code: "GBP", name: "İngiliz Sterlini", flag: "🇬🇧", margin: true },
+  { code: "CHF", name: "İsviçre Frangı", flag: "🇨🇭", margin: true },
+  { code: "GRA", name: "Gram Altın (24 Ayar)", flag: "🟡", margin: false },
 ];
 
-// Illustrative spread applied around the reference mid-rate to show a
-// buy/sell pair. Real branch rates are set at the counter.
-const SPREAD_RATIO = 0.006;
+// Kar marjı: müşteriden 1 birim döviz başına yaklaşık MARGIN_TRY kadar
+// kazanç hedeflenir, bu yüzden pay = MARGIN_TRY / mid kadar alıştan düşülür,
+// satışa eklenir (örn. USD mid 45.30 iken pay ≈ 0.22 -> alış 45.08, satış 45.52).
+const MARGIN_TRY = 10;
 
-async function fetchMidRate(code: CurrencyCode): Promise<{ mid: number; date: string } | null> {
+const TRUNCGIL_URL = "https://finans.truncgil.com/v4/today.json";
+
+type TruncgilEntry = { Buying?: unknown; Selling?: unknown };
+type TruncgilResponse = Record<string, unknown> & { Update_Date?: unknown };
+
+async function fetchTruncgil(): Promise<{ data: TruncgilResponse; date: string } | null> {
   try {
-    const res = await fetch(
-      `https://api.frankfurter.dev/v1/latest?base=${code}&symbols=TRY`,
-      { next: { revalidate: 300 } }
-    );
+    const res = await fetch(TRUNCGIL_URL, { next: { revalidate: 300 } });
     if (!res.ok) return null;
-    const data = await res.json();
-    const mid = data?.rates?.TRY;
-    if (typeof mid !== "number" || !Number.isFinite(mid)) return null;
-    return { mid, date: data.date as string };
+    const data = (await res.json()) as TruncgilResponse;
+    const date = typeof data.Update_Date === "string" ? data.Update_Date : new Date().toISOString();
+    return { data, date };
   } catch {
     return null;
   }
 }
 
 export async function getRates(): Promise<RatesResult> {
-  const results = await Promise.all(CURRENCIES.map((c) => fetchMidRate(c.code)));
+  const result = await fetchTruncgil();
 
   let asOf: string | null = null;
   let anyLive = false;
 
-  const rates: CurrencyRate[] = CURRENCIES.map((meta, i) => {
-    const r = results[i];
-    if (!r) {
-      return { ...meta, mid: null, buy: null, sell: null };
+  const rates: CurrencyRate[] = CURRENCIES.map((meta) => {
+    const entry = result?.data[meta.code] as TruncgilEntry | undefined;
+    const buying = entry?.Buying;
+    const selling = entry?.Selling;
+    if (typeof buying !== "number" || typeof selling !== "number") {
+      return { code: meta.code, name: meta.name, flag: meta.flag, mid: null, buy: null, sell: null };
     }
+
     anyLive = true;
-    asOf = r.date;
+    asOf = result!.date;
+    const mid = (buying + selling) / 2;
+
+    if (!meta.margin) {
+      return { code: meta.code, name: meta.name, flag: meta.flag, mid, buy: buying, sell: selling };
+    }
+
+    const margin = MARGIN_TRY / mid;
     return {
-      ...meta,
-      mid: r.mid,
-      buy: r.mid * (1 - SPREAD_RATIO),
-      sell: r.mid * (1 + SPREAD_RATIO),
+      code: meta.code,
+      name: meta.name,
+      flag: meta.flag,
+      mid,
+      buy: mid - margin,
+      sell: mid + margin,
     };
   });
 
@@ -111,22 +129,41 @@ export async function getRateHistory(
   }
 }
 
-/** Convert an amount between TRY and a supported foreign currency using mid rates. */
+/**
+ * Convert an amount between TRY and a supported foreign currency using the
+ * alış/satış (buy/sell) margin rates, not the raw mid rate.
+ *
+ * - TRY -> döviz: müşteri TL verip döviz alıyor, yani biz satıyoruz -> satış kuru.
+ * - Döviz -> TRY: müşteri döviz verip TL alıyor, yani biz alıyoruz -> alış kuru.
+ * - Döviz -> döviz: önce alış kuruyla TL'ye, sonra satış kuruyla hedef dövize çevrilir.
+ */
 export function convert(
   amount: number,
   from: CurrencyCode | "TRY",
   to: CurrencyCode | "TRY",
   rates: CurrencyRate[]
 ): number | null {
-  const midOf = (code: CurrencyCode | "TRY"): number | null => {
-    if (code === "TRY") return 1;
-    return rates.find((r) => r.code === code)?.mid ?? null;
-  };
+  if (from === to) return amount;
 
-  const fromMid = midOf(from);
-  const toMid = midOf(to);
-  if (fromMid === null || toMid === null) return null;
+  const rateOf = (code: CurrencyCode | "TRY"): CurrencyRate | undefined =>
+    code === "TRY" ? undefined : rates.find((r) => r.code === code);
 
-  const amountInTRY = amount * fromMid;
-  return amountInTRY / toMid;
+  if (from === "TRY") {
+    const r = rateOf(to);
+    if (!r || r.sell === null) return null;
+    return amount / r.sell;
+  }
+
+  if (to === "TRY") {
+    const r = rateOf(from);
+    if (!r || r.buy === null) return null;
+    return amount * r.buy;
+  }
+
+  const rFrom = rateOf(from);
+  const rTo = rateOf(to);
+  if (!rFrom || rFrom.buy === null || !rTo || rTo.sell === null) return null;
+
+  const amountInTRY = amount * rFrom.buy;
+  return amountInTRY / rTo.sell;
 }
