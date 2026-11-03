@@ -19,7 +19,7 @@ export const siteConfig = {
     country: "TR",
   },
   hours: {
-    weekdays: "09:00 – 19:00",
+    weekdays: "09:00 – 18:30",
     saturday: "10:00 – 17:00",
     sunday: "Kapalı",
   },
